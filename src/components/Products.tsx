@@ -2,7 +2,7 @@
 import { Category, Product } from "@/type/type";
 import React, { Suspense, useEffect, useState } from "react";
 import ShowProduct from "./ShowProduct";
-import { GetAllCategories } from "@/app/action/action";
+import { GetAllCategories, GetAllproduct } from "@/app/action/action";
 import Loading from "./Loading";
 
 export default function Products() {
@@ -18,23 +18,45 @@ export default function Products() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(
-      `/api/product?categoryName=${categoryName}&sortOrder=${sortOrder}&name=${name}&page=${page}&pageSize=${pageSize}`
+    GetAllproduct(
+      page,
+      pageSize,
+      categoryName,
+      name,
+      sortOrder as "asc" | "desc"
     )
-      .then((res) => res.json())
-      .then((data) => {
+      .then((res) => {
+        if (res) {
+          setLoading(false);
+          setProducts(res.items as Product[]);
+          setTotalPages(Math.ceil((res.totalCount as number) / pageSize));
+        }
         setLoading(false);
-        setProducts(data.items);
-        setTotalPages(Math.ceil(data.totalCount / pageSize));
+      })
+      .catch((error) => {
+        console.error(error);
       });
+
+    // fetch(
+    //   `/api/product?categoryName=${categoryName}&sortOrder=${sortOrder}&name=${name}&page=${page}&pageSize=${pageSize}`
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setLoading(false);
+    //     setProducts(data.items);
+    //     setTotalPages(Math.ceil(data.totalCount / pageSize));
+    //   });
   }, [categoryName, name, sortOrder, page, pageSize]);
 
   useEffect(() => {
     setLoading(true);
     GetAllCategories()
       .then((res) => {
+        if (res) {
+          setLoading(false);
+          setCategory(res as Category[]);
+        }
         setLoading(false);
-        setCategory(res as Category[]);
       })
       .catch((error) => {
         console.error(error);

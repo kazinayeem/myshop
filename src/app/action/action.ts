@@ -50,5 +50,75 @@ export async function GetAllCategories() {
     return res;
   } catch (error) {
     console.error(error);
+    return null;
+  }
+}
+
+// get all prodct with pagination and include category and images and filter
+export async function GetAllproduct(
+  page: number = 1,
+  pageSize: number = 10,
+  categoryName?: string,
+  name?: string,
+  sortOrder?: "asc" | "desc"
+) {
+  try {
+    const totalCount = await prisma.product.count({
+      where: {
+        AND: [
+          categoryName
+            ? {
+                category: {
+                  name: { contains: categoryName },
+                },
+              }
+            : {},
+          name ? { name: { contains: name } } : {},
+        ],
+      },
+    });
+
+    const data = await prisma.product.findMany({
+      where: {
+        AND: [
+          categoryName
+            ? {
+                category: {
+                  name: { contains: categoryName },
+                },
+              }
+            : {},
+          name ? { name: { contains: name } } : {},
+        ],
+      },
+      orderBy: sortOrder
+        ? { price: sortOrder === "asc" ? "asc" : "desc" }
+        : undefined,
+      include: {
+        category: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+        images: {
+          select: {
+            url: true,
+          },
+        },
+      },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    });
+
+    return {
+      items: data,
+      totalCount: totalCount,
+    };
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error fetching products:", error);
+      return null;
+    }
   }
 }
