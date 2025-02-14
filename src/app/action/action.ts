@@ -122,3 +122,34 @@ export async function GetAllproduct(
     }
   }
 }
+
+// create a new product
+export async function CreateProduct(product: {
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  categoryId: string;
+  images: string[];
+}) {
+  try {
+    const res = await prisma.product.create({
+      data: {
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        stock: product.stock,
+        categoryId: product.categoryId,
+        images: {
+          create: product.images.map((url) => ({
+            url: url,
+          })),
+        },
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}

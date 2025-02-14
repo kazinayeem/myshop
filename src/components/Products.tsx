@@ -12,7 +12,7 @@ export default function Products() {
   const [sortOrder, setSortOrder] = useState<string>("");
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState<number>(1);
-  const [pageSize] = useState<number>(10);
+  const [pageSize] = useState<number>(8);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
 

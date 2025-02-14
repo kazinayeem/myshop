@@ -2,10 +2,11 @@
 import React, { useState } from "react";
 import Link from "next/link"; // Import the Link component from Next.js
 import ModeToggle from "./toggle-theme"; // Import your custom ModeToggle component
-
+import { useSession, signIn, signOut } from "next-auth/react";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const { data: session } = useSession();
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -67,7 +68,31 @@ const Navbar = () => {
                     Contact
                   </p>
                 </Link>
-                <ModeToggle /> {/* Your custom Theme Toggle */}
+                <ModeToggle />
+
+                {/* right side */}
+                <div className="flex items-center justify-center self-end space-x-4">
+                  {session ? (
+                    <>
+                      <p className="text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
+                        {session.user?.name}
+                      </p>
+                      <button
+                        onClick={() => signOut()}
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                      >
+                        Sign Out
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      onClick={() => signIn()}
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Sign In
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
