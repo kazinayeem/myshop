@@ -1,8 +1,11 @@
 import React from "react";
 import { GetAllproduct } from "./action/action";
 
-export default async function page() {
+export const revalidate = 10; 
+
+export default async function Page() {
   const data = await GetAllproduct();
+
   if (!data?.items) return <div>Loading ....</div>;
 
   return (
