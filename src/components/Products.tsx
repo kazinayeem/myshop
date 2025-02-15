@@ -19,11 +19,11 @@ export default function Products() {
   useEffect(() => {
     setLoading(true);
     GetAllproduct(
-      // page,
-      // pageSize,
-      // categoryName,
-      // name,
-      // sortOrder as "asc" | "desc"
+      page,
+      pageSize,
+      categoryName,
+      name,
+      sortOrder as "asc" | "desc"
     )
       .then((res) => {
         if (res) {
