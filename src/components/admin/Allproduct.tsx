@@ -39,11 +39,11 @@ export function ProductTable() {
   useEffect(() => {
     setLoading(true);
     GetAllproduct(
-      page,
-      pageSize,
-      category,
-      search,
-      sorting[0]?.desc ? "desc" : "asc"
+      // page,
+      // pageSize,
+      // category,
+      // search,
+      // sorting[0]?.desc ? "desc" : "asc"
     )
       .then((res) => {
         if (res) {
