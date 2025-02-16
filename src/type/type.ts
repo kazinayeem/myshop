@@ -1,16 +1,22 @@
-export type Product = {
+
+
+export interface Product {
   id: string;
   name: string;
-  description?: string; 
-  price: number; 
-  stock: number; 
+  description?: string | null;
+  price: number;
+  stock: number;
   categoryId: string;
-  createdAt: Date; 
+  category: {
+    id: string;
+    name: string;
+  };
+  images: {
+    url: string;
+  }[];
+  createdAt: Date;
   updatedAt: Date;
-  images: Image[]; 
-  category : Category;
-  
-};
+}
 
 export type Category = {
   id: string;

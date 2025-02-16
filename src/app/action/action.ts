@@ -56,8 +56,8 @@ export async function GetAllCategories() {
 
 // get all prodct with pagination and include category and images and filter
 export async function GetAllproduct(
-  // page: number = 1,
-  // pageSize: number = 10,
+  page: number = 1,
+  pageSize: number = 10,
   categoryName?: string,
   name?: string,
   sortOrder?: "asc" | "desc"
@@ -107,8 +107,8 @@ export async function GetAllproduct(
           },
         },
       },
-      // skip: (page - 1) * pageSize,
-      // take: pageSize,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
     });
 
     return {
