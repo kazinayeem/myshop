@@ -18,7 +18,6 @@ export default function Filter() {
     searchParams.get("sortOrder") || "asc"
   );
 
-  // Fetch Categories on Load
   useEffect(() => {
     async function fetchCategories() {
       const data = await GetAllCategories();
@@ -29,7 +28,6 @@ export default function Filter() {
     fetchCategories();
   }, []);
 
-  // Auto Update URL Params when Filters Change
   useEffect(() => {
     const params = new URLSearchParams();
     if (name) params.set("name", name);
@@ -37,9 +35,8 @@ export default function Filter() {
     params.set("page", page.toString());
     params.set("pageSize", "10");
     params.set("sortOrder", sortOrder);
-
     router.push(`?${params.toString()}`);
-  }, [name, categoryName, page, sortOrder, router]); // Runs whenever these change
+  }, [name, categoryName, page, sortOrder, router]); 
 
   return (
     <div className="bg-white p-4 shadow-lg rounded-lg w-full max-w-6xl mx-auto">

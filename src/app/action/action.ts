@@ -46,7 +46,11 @@ export async function GetAproduct(id: string) {
 // get all categories
 export async function GetAllCategories() {
   try {
-    const res = await prisma.category.findMany();
+    const res = await prisma.category.findMany({
+      include: {
+        products: true,
+      },
+    });
     return res;
   } catch (error) {
     console.error(error);

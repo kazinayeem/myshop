@@ -18,8 +18,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
   const sortOrder = searchParams.sortOrder || "asc";
 
   return (
-    <div>
-    
+    <div className="container mx-auto">
       <Filter />
       <ProductList
         page={page}

@@ -31,6 +31,20 @@ export const AppSidebar = () => {
         <Link href="#" className="block p-2 hover:bg-gray-700 rounded">
           Users
         </Link>
+
+        {/* category */}
+        <Link
+          href="/admin/categories"
+          className="block p-2 hover:bg-gray-700 rounded"
+        >
+          Categories
+        </Link>
+        <Link
+          href="/admin/categories/add"
+          className="block p-2 hover:bg-gray-700 rounded"
+        >
+          Add Category
+        </Link>
       </nav>
     </aside>
   );
