@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import { Product } from "@/type/type";
 import Image from "next/image";
 
-
+import parse from "html-react-parser";
 export default function ProductPage({ product }: { product: Product }) {
   if (!product) {
     return (
@@ -20,7 +20,11 @@ export default function ProductPage({ product }: { product: Product }) {
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
-      <p className="text-gray-600 mt-2">{product.description}</p>
+      
+      {/* show description */}
+      <div className="mt-4">{parse(product.description || "")}</div>
+
+      {/* Price and Stock */}
 
       <div className="mt-4">
         <span className="text-lg font-semibold text-green-600">
@@ -43,8 +47,8 @@ export default function ProductPage({ product }: { product: Product }) {
           slidesPerView={1}
           className="w-full rounded-lg"
         >
-          {product.images.map((image) => (
-            <SwiperSlide key={image.url}>
+          {product.images.map((image, index) => (
+            <SwiperSlide key={index}>
               <div className="relative w-full h-[400px]">
                 <Image
                   src={image.url}

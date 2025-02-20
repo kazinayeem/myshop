@@ -134,6 +134,7 @@ export async function CreateProduct(product: {
   price: number;
   stock: number;
   categoryId: string;
+  published?: boolean;
   images: string[];
 }) {
   try {
@@ -144,6 +145,7 @@ export async function CreateProduct(product: {
         price: product.price,
         stock: product.stock,
         categoryId: product.categoryId,
+        published: product.published,
         images: {
           create: product.images.map((url) => ({
             url: url,

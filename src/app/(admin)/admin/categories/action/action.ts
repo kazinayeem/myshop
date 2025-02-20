@@ -4,13 +4,23 @@ import { prisma } from "@/lib/prisma";
 
 //  add category
 
-export const AddCategory = async (formData: FormData) => {
-  const name = formData.get("category") as string;
-  await prisma.category.create({
-    data: {
-      name,
+export const AddCategory = async (category: string) => {
+  // check already exist or not
+  const exist = await prisma.category.findFirst({
+    where: {
+      name: category,
     },
   });
+  if (exist) {
+    return { error: "Category already exist" };
+  }
+  await prisma.category.create({
+    data: {
+      name: category,
+    },
+  });
+
+  return { message: "Category added successfully" };
 };
 
 // show category

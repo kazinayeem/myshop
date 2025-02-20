@@ -1,7 +1,16 @@
-import { AddCategory } from "../action/action";
+"use client";
+
+import { useState } from "react";
+import { AddCategory } from "../action/action"; // Import the server function
 
 const Page = () => {
-  
+  const [message, setMessage] = useState<string | null>(null);
+
+  const handleAddCategory = async (formData: FormData) => {
+    const category = formData.get("category") as string;
+    const { error, message } = await AddCategory(category); 
+    setMessage(error || message || null);
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -9,7 +18,10 @@ const Page = () => {
         <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">
           Add Category
         </h2>
-        <form className="space-y-4" action={AddCategory}>
+        <form
+          className="space-y-4"
+          action={handleAddCategory} // Correct way to use server actions in Client Components
+        >
           <div className="mb-4">
             <label
               htmlFor="category"
@@ -31,6 +43,11 @@ const Page = () => {
             Add Category
           </button>
         </form>
+        {message && (
+          <p className="mt-4 text-center text-sm font-medium text-red-600">
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );

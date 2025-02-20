@@ -32,10 +32,7 @@ export default function ShowProduct({ product }: ShowProductProps) {
           >
             {product.name}
           </Link>
-          {/* Product Description */}
-          <p className="text-gray-600 mt-2">
-            {product.description?.substring(0, 100)}
-          </p>
+         
 
           {/* Product Price */}
           <p className="text-2xl font-bold text-gray-900 mt-4">
