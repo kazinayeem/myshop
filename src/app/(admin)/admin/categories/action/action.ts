@@ -6,24 +6,11 @@ import { prisma } from "@/lib/prisma";
 
 export const AddCategory = async (formData: FormData) => {
   const name = formData.get("category") as string;
-
-  // already exist
-  const category = await prisma.category.findFirst({
-    where: {
-      name,
-    },
-  });
-  if (category) {
-    return {
-      error: "Category already exist",
-    };
-  }
   await prisma.category.create({
     data: {
       name,
     },
   });
-  return { message: "Category added successfully" };
 };
 
 // show category
@@ -64,7 +51,11 @@ export const DeleteCategory = async (id: string) => {
 export const GetCategoryById = async (id: string) => {
   const res = await prisma.category.findUnique({
     include: {
-      products: true,
+      products: {
+        include: {
+          images: true,
+        },
+      },
     },
     where: { id },
   });

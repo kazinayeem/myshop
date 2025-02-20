@@ -1,14 +1,7 @@
 import { AddCategory } from "../action/action";
 
 const Page = () => {
-  const AddCategoryHandeler = async (formData: FormData) => {
-    "use server";
-    const { error, message } = await AddCategory(formData);
-    if (error) {
-      alert(error);
-    }
-    alert(message);
-  };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -16,7 +9,7 @@ const Page = () => {
         <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">
           Add Category
         </h2>
-        <form className="space-y-4" action={AddCategoryHandeler}>
+        <form className="space-y-4" action={AddCategory}>
           <div className="mb-4">
             <label
               htmlFor="category"
