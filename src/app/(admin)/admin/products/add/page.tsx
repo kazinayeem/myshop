@@ -84,7 +84,7 @@ export default function AddProduct() {
   };
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-gray-100">
+    <div className="h-screen w-full min-w-full flex items-center justify-center bg-gray-100">
       <div className="max-w-lg w-full p-6 bg-white shadow-md rounded-md">
         <h2 className="text-2xl font-bold text-center mb-6">Add Product</h2>
         <form onSubmit={handleSubmit}>
@@ -94,7 +94,7 @@ export default function AddProduct() {
               htmlFor="name"
               className="block text-sm font-medium text-gray-700"
             >
-              Product Name
+              Product Name *
             </label>
             <input
               type="text"
@@ -102,7 +102,6 @@ export default function AddProduct() {
               name="name"
               value={product.name}
               onChange={handleChange}
-              required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
@@ -113,7 +112,16 @@ export default function AddProduct() {
               htmlFor="description"
               className="block text-sm font-medium text-gray-700"
             >
-              Description
+              {/* Description red start */}
+              Description{" "}
+              <span
+                className="
+              text-red-500 ml-1
+              "
+              >
+                *
+              </span>
+              {/* Description red end */}
             </label>
             <textarea
               id="description"

@@ -98,7 +98,7 @@ model Image {
 model Category {
   id        String    @id @default(uuid())
   name      String    @unique
-  products  Product[]
+  products  Product[] 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
