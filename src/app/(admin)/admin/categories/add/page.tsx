@@ -5,7 +5,7 @@ const Page = () => {
     "use server";
     const { error, message } = await AddCategory(formData);
     if (error) {
-      return alert(error);
+      alert(error);
     }
     alert(message);
   };
