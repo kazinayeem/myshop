@@ -2,6 +2,13 @@ import React from "react";
 import { AddCategory } from "../action/action";
 
 const Page = () => {
+  const AddCategoryHandeler = async (formData: FormData) => {
+    const { error, message } = await AddCategory(formData);
+    if (error) {
+      return alert(error);
+    }
+    alert(message);
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -9,7 +16,7 @@ const Page = () => {
         <h2 className="text-2xl font-semibold text-center text-gray-700 mb-4">
           Add Category
         </h2>
-        <form className="space-y-4" action={AddCategory}>
+        <form className="space-y-4" action={AddCategoryHandeler}>
           <div className="mb-4">
             <label
               htmlFor="category"
