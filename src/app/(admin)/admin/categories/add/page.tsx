@@ -1,8 +1,8 @@
-import React from "react";
 import { AddCategory } from "../action/action";
 
 const Page = () => {
   const AddCategoryHandeler = async (formData: FormData) => {
+    "use server";
     const { error, message } = await AddCategory(formData);
     if (error) {
       return alert(error);
